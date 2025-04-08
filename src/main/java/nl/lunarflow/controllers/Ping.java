@@ -1,16 +1,16 @@
-package nl.lunarflow;
+package nl.lunarflow.controllers;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-@Path("/")
+@Path("/ping")
 public class Ping {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from Quarkus REST";
+    public String ping() {
+        return "pong";
     }
 }
