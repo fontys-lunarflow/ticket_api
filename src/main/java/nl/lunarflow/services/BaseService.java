@@ -6,7 +6,7 @@ import nl.lunarflow.models.Ticket;
 
 public class BaseService {
 
-    public static Ticket reqTicket(Config conf, Ticket ticket, Service handler) throws Exception{
+    public static Ticket reqTicket(Config conf, Ticket ticket, Service handler) throws Exception {
         return handler.reqTicket(conf, ticket);
     }
 
@@ -14,8 +14,7 @@ public class BaseService {
         return handler.newTicket(conf, ticket);
     }
 
-    public static Ticket doneTicket(Config conf, Ticket ticket, Service handler) throws Exception{
-        // TODO Auto-generated method stub
+    public static Ticket doneTicket(Config conf, Ticket ticket, Service handler) throws Exception {
         throw new UnsupportedOperationException("Unimplemented method 'doneTicket'");
     }
     

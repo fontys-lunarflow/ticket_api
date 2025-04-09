@@ -16,7 +16,7 @@ import nl.lunarflow.services.*;
 @Path("/api/new")
 public class New {
     @POST
-    public Response request(Ticket ticket) {
+    public Response newTicket(Ticket ticket) {
         try {
             ticket = BaseService.newTicket(new Config(), ticket, new GitlabService());
         } catch (Exception e) {
