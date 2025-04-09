@@ -20,9 +20,23 @@ public class GitlabService implements Service {
         return assignList;
     }
 
+    static Ticket mapTicket(Issue issue) {
+        Ticket ticket = new Ticket();
+        ticket.id = issue.getIid();
+        ticket.title = issue.getTitle();
+        ticket.url = issue.getWebUrl();
+        ticket.dueDate = issue.getDueDate().toString();
+        return ticket;
+    }
+
     @Override
-    public Ticket reqTicket(Config conf, Ticket ticket) throws Exception{
-        throw new UnsupportedOperationException("Unimplemented method 'reqTicket'");
+    public Ticket reqTicket(Config conf, Ticket ticket) throws Exception {
+        GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+        Issue issue = api.getIssuesApi().getIssue(conf.projectPath, ticket.id);
+        Ticket ret = mapTicket(issue);
+
+        api.close();
+        return ret;
     }
 
     @Override
@@ -33,6 +47,7 @@ public class GitlabService implements Service {
 
         ticket.id = issue.getIid();
         ticket.url = issue.getWebUrl();
+        api.close();
 
         return ticket;
     }
