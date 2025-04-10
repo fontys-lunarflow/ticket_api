@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.gitlab4j.api.GitLabApi;
 import org.gitlab4j.api.models.Assignee;
 import org.gitlab4j.api.models.Issue;
+import org.gitlab4j.models.Constants.IssueState;
 
 public class GitlabService implements Service {
 
@@ -53,9 +54,13 @@ public class GitlabService implements Service {
     }
 
     @Override
-    public Ticket doneTicket(Config conf, Ticket ticket) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'doneTicket'");
+    public Ticket doneTicket(Config conf, Ticket ticket) throws Exception {
+        GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+        Issue issue = api.getIssuesApi().getIssue(conf.projectPath, ticket.id);
+        issue.setState(IssueState.CLOSED);
+
+        api.close();
+        return ticket;
     }
-    
+
 }

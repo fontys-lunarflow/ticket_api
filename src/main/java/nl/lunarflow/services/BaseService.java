@@ -15,7 +15,7 @@ public class BaseService {
     }
 
     public static Ticket doneTicket(Config conf, Ticket ticket, Service handler) throws Exception {
-        throw new UnsupportedOperationException("Unimplemented method 'doneTicket'");
+        return handler.doneTicket(conf, ticket);
     }
     
 }
