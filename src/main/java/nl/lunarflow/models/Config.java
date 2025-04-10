@@ -11,4 +11,9 @@ public class Config {
 
     @ConfigProperty(name = "GITLAB_TOKEN")
     public String token;
+
+    @Override
+    public String toString() {
+        return String.format("Configuration:\n- Server: %s\n- Project: %s\n- Token: %s", this.serverURL, this.projectPath, this.token);
+    }
 }
