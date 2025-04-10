@@ -15,8 +15,8 @@ public class Request {
     public Response requestTicket(Ticket ticket) {
         try {
             ticket = BaseService.reqTicket(new Config(), ticket, new GitlabService());
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.toString()).build();
+        } catch (Exception err) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
         }
         return Response.ok(ticket).build();
     }

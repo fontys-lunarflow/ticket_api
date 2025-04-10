@@ -7,9 +7,9 @@ import nl.lunarflow.models.Config;
 import nl.lunarflow.models.Ticket;
 import nl.lunarflow.services.*;
 
-// Move ticket state to done
+// Move ticket state to done, or fail
 
-@Path("/api/close")
+@Path("/api/done")
 public class Done {
     @GET
     public Response doneTicket(Ticket ticket) {
