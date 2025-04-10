@@ -2,7 +2,7 @@ package nl.lunarflow.controllers;
 
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import nl.lunarflow.models.Config;
 import nl.lunarflow.models.Ticket;
 import nl.lunarflow.services.*;
@@ -11,7 +11,7 @@ import nl.lunarflow.services.*;
 
 @Path("/api/done")
 public class Done {
-    @GET
+    @POST
     public Response doneTicket(Ticket ticket) {
         try {
             ticket = BaseService.doneTicket(new Config(), ticket, new GitlabService());
