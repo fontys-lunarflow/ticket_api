@@ -27,7 +27,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          # Ensure submodules or additional paths are properly fetched
+          fetch-depth: 0  # Fetch the full history to ensure all files are available
 
+
+      - name: Debug File Presence
+        run: ls -al src/main/docker
+                  
 
       - name: Set up QEMU
         # This step sets up QEMU, which is a generic and open source machine emulator and virtualizer. 
