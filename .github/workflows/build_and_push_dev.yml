@@ -42,7 +42,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
 
 
-      - name: setup docker buildx
+      - name: Set up Docker Buildx
         # This step sets up Docker Buildx, which is a Docker CLI plugin for extended build capabilities with BuildKit.
         # It allows you to build images for multiple platforms and architectures.
         uses: docker/setup-buildx-action@v3
@@ -78,8 +78,8 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          context: src/main/docker
-          file: Dockerfile.native-multistage
+          context: .
+          file: src/main/docker/Dockerfile.native-multistage
           push: true
           platforms: linux/amd64, linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
