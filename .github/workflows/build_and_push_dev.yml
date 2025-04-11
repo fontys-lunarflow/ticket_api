@@ -1,6 +1,6 @@
 # Created as per https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
 
-name: Build and Push Docker Image
+name: Build and Push the Dev Docker Image
 
 on:
   push:
@@ -71,7 +71,8 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: src/main/docker
+          file: src/main/docker/Dockerfile.dev
           push: true
           platforms: linux/amd64, linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
