@@ -34,7 +34,7 @@ spec:
                 configMapKeyRef:
                   key: GITLAB_TOKEN
                   name: ticket-api
-          image: ghcr.io/fontys-lunarflow/ticket_api:latest
+          image: ghcr.io/fontys-lunarflow/ticket_api:v0.2
           imagePullPolicy: Always
           name: ticket-api
       restartPolicy: Always
