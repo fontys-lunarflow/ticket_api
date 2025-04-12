@@ -25,6 +25,7 @@ public class GitlabService implements Service {
         Ticket ticket = new Ticket();
         ticket.id = issue.getIid();
         ticket.title = issue.getTitle();
+        ticket.desc = issue.getDescription();
         ticket.url = issue.getWebUrl();
         ticket.dueDate = issue.getDueDate().toString();
         return ticket;
@@ -43,7 +44,7 @@ public class GitlabService implements Service {
     @Override
     public Ticket newTicket(Config conf, Ticket ticket) throws Exception {
         GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
-        Issue issue = api.getIssuesApi().createIssue(api, ticket.title, "");
+        Issue issue = api.getIssuesApi().createIssue(api, ticket.title, ticket.desc);
         issue.setAssignees(mapAssignees(ticket.assignees));
 
         ticket.id = issue.getIid();
