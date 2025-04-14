@@ -44,7 +44,7 @@ public class GitlabService implements Service {
     @Override
     public Ticket newTicket(Config conf, Ticket ticket) throws Exception {
         GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
-        Issue issue = api.getIssuesApi().createIssue(api, ticket.title, ticket.desc);
+        Issue issue = api.getIssuesApi().createIssue(conf.projectPath, ticket.title, ticket.desc);
         issue.setAssignees(mapAssignees(ticket.assignees));
 
         ticket.id = issue.getIid();
