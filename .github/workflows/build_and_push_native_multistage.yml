@@ -1,6 +1,6 @@
 # Created as per https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
 
-name: Build and Push the Dev Docker Image
+name: Build and Push the Native Multistage Docker Image
 
 on:
   push:
