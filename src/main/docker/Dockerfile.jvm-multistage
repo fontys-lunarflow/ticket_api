@@ -1,9 +1,8 @@
-## Stage 1 : build with maven builder image with native capabilities
+## Stage 1 : build with maven builder image in JVM
 FROM registry.access.redhat.com/ubi9/openjdk-21:1.21 AS build
-COPY --chown=quarkus:quarkus --chmod=0755 mvnw /code/mvnw
-COPY --chown=quarkus:quarkus .mvn /code/.mvn
-COPY --chown=quarkus:quarkus pom.xml /code/
-USER quarkus
+COPY --chmod=0755 mvnw /code/mvnw
+COPY .mvn /code/.mvn
+COPY pom.xml /code/
 WORKDIR /code
 RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.8.1:go-offline
 COPY src /code/src
