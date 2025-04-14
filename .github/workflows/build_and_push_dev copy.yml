@@ -1,0 +1,97 @@
+# Created as per https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
+
+name: Build and Push the Dev Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  # Defines two custom environment variables for the workflow. These are used for the
+  # Container registry domain, and a name for the Docker image that this workflow builds.  
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Sets the permissions granted to the GITHUB_TOKEN for the actions in this job.
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Ensure submodules or additional paths are properly fetched
+          fetch-depth: 0  # Fetch the full history to ensure all files are available
+
+
+      - name: Debug File Presence
+        run: ls -al src/main/docker
+                  
+
+      - name: Set up QEMU
+        # This step sets up QEMU, which is a generic and open source machine emulator and virtualizer. 
+        # It allows you to run code for different architectures on your local machine. 
+        uses: docker/setup-qemu-action@v3
+
+
+      - name: Set up Docker Buildx
+        # This step sets up Docker Buildx, which is a Docker CLI plugin for extended build capabilities with BuildKit.
+        # It allows you to build images for multiple platforms and architectures.
+        uses: docker/setup-buildx-action@v3
+
+
+      - name: Log in to the Container registry  
+        # Uses the docker/login-action action to log in to the Container registry 
+        # using the account and password that will publish the packages. Once
+        # published, the packages are scoped to the account defined here.
+        uses: docker/login-action@v3
+        with:                                                   
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }} # The GitHub actor is the person or app that initiated the workflow run.
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Extract metadata (tags, labels) for Docker        
+        # This step uses docker/metadata-action to extract tags and labels that will be applied to 
+        # the specified image. The id "meta" allows the output of this step to be referenced in a
+        # subsequent step. The images value provides the base name for the tags and labels.
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}          
+ 
+          
+      - name: Build and push Docker image
+        # This step uses the docker/build-push-action action to build the image, based on your repository's 
+        # Dockerfile. If the build succeeds, it pushes the image to GitHub Packages. It uses the context 
+        # parameter to define the build's context as the set of files located in the specified path. 
+        # For more information, see Usage in the README of the docker/build-push-action repository. 
+        # It uses the tags and labels parameters to tag and label the image with the output from the "meta" step. 
+        id: push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: src/main/docker/Dockerfile.native-multistage
+          push: true
+          platforms: linux/amd64, linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+
+      - name: Generate artifact attestation
+        # This step generates an artifact attestation for the image, which is an unforgeable statement about where and
+        # how it was built. It increases supply chain security for people who consume the image. For more information, 
+        # see https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
