@@ -11,8 +11,8 @@ import nl.lunarflow.models.Config;
 public class Ping {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String ping() {
-        return String.format("pong\n%s\n", new Config().toString());
+    @Produces(MediaType.APPLICATION_JSON)
+    public Config ping() {
+        return new Config();
     }
 }
