@@ -9,4 +9,8 @@ public class Ticket {
     public String dueDate;
     public String url;
     public ArrayList<String> assignees;
+
+    public Ticket() {
+        
+    }
 }
