@@ -5,14 +5,14 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-import nl.lunarflow.models.Config;
+import nl.lunarflow.models.Status;
 
 @Path("/ping")
 public class Ping {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Config ping() {
-        return new Config();
+    public Status ping() {
+        return new Status();
     }
 }
