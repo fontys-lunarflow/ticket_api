@@ -29,7 +29,7 @@ spec:
                 configMapKeyRef:
                   key: GITLAB_TOKEN
                   name: ticket-api
-          image: ghcr.io/fontys-lunarflow/ticket_api:v0.2
+          image: ghcr.io/fontys-lunarflow/ticket_api:v0.5
           imagePullPolicy: Always
           name: ticket-api
       restartPolicy: Always
@@ -47,12 +47,3 @@ spec:
   selector:
     app: ticket-api
   type: ClusterIP
----
-apiVersion: v1
-data:
-  GITLAB_PROJECT: org/team/project
-  GITLAB_SERVER: https://gitlab.com
-  GITLAB_TOKEN: 123abc
-kind: ConfigMap
-metadata:
-  name: ticket-api
