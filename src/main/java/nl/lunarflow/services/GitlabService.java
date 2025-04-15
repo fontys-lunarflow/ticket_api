@@ -16,8 +16,8 @@ public class GitlabService implements Service {
     static ArrayList<Assignee> mapAssignees(ArrayList<String> mailList) {
         ArrayList<Assignee> assignList = new ArrayList<Assignee>();
         if (mailList != null) {
-             for (String s : mailList) {
-            assignList.add(new Assignee().withEmail(s));
+            for (String s : mailList) {
+                assignList.add(new Assignee().withEmail(s));
             }
         }
         return assignList;
@@ -29,7 +29,11 @@ public class GitlabService implements Service {
         ticket.title = issue.getTitle();
         ticket.desc = issue.getDescription();
         ticket.url = issue.getWebUrl();
-        ticket.dueDate = issue.getDueDate().toString();
+        if (issue.getDueDate() != null) {
+            ticket.dueDate = issue.getDueDate().toString();
+        } else {
+            ticket.dueDate = "";
+        }
         return ticket;
     }
 
