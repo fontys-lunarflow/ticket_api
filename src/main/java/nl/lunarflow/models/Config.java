@@ -13,8 +13,4 @@ public class Config {
         this.token = System.getenv("GITLAB_TOKEN");
     }
 
-    @Override
-    public String toString() {
-        return String.format("Configuration:\n- Server: %s\n- Project: %s\n- Token: %s", this.serverURL, this.projectPath, this.token);
-    }
 }

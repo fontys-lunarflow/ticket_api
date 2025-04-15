@@ -15,8 +15,10 @@ public class GitlabService implements Service {
 
     static ArrayList<Assignee> mapAssignees(ArrayList<String> mailList) {
         ArrayList<Assignee> assignList = new ArrayList<Assignee>();
-        for (String s : mailList) {
+        if (mailList != null) {
+             for (String s : mailList) {
             assignList.add(new Assignee().withEmail(s));
+            }
         }
         return assignList;
     }
@@ -63,5 +65,4 @@ public class GitlabService implements Service {
         api.close();
         return ticket;
     }
-
 }
