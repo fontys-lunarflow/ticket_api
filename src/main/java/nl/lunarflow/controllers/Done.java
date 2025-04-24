@@ -5,7 +5,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.POST;
 import nl.lunarflow.models.Config;
 import nl.lunarflow.models.Ticket;
-import nl.lunarflow.services.*;
+import nl.lunarflow.services.GitlabService;
 
 // Move ticket state to done, or fail
 
@@ -14,7 +14,7 @@ public class Done {
     @POST
     public Response doneTicket(Ticket ticket) {
         try {
-            ticket = BaseService.doneTicket(new Config(), ticket, new GitlabService());
+            ticket = Handler.doneTicket(new Config(), ticket, new GitlabService());
         } catch (Exception err) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
         }

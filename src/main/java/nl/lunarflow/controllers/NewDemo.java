@@ -2,19 +2,17 @@ package nl.lunarflow.controllers;
 
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import nl.lunarflow.models.Config;
 import nl.lunarflow.models.Ticket;
-import nl.lunarflow.services.*;
+import nl.lunarflow.services.TestService;
 
-// Request a ticket: Either return a filled out ticket, or crash
-
-@Path("/api/request")
-public class Request {
-    @GET
-    public Response requestTicket(Ticket ticket) {
+@Path("/demo/new")
+public class NewDemo {
+    @POST
+    public Response newTicket(Ticket ticket) {
         try {
-            ticket = Handler.reqTicket(new Config(), ticket, new GitlabService());
+            ticket = Handler.newTicket(new Config(), ticket, new TestService());
         } catch (Exception err) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
         }

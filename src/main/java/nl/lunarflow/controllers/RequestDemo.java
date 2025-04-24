@@ -14,7 +14,7 @@ public class RequestDemo {
     public Response requestTicket(Ticket ticket) {
 
         try {
-            return Response.ok(BaseService.reqTicket(null, ticket, new TestService())).build();
+            return Response.ok(Handler.reqTicket(null, ticket, new TestService())).build();
         } catch (Exception err) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
         }
