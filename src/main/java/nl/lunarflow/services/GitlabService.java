@@ -5,11 +5,12 @@ import nl.lunarflow.models.Service;
 import nl.lunarflow.models.Ticket;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.gitlab4j.api.GitLabApi;
 import org.gitlab4j.api.models.Assignee;
 import org.gitlab4j.api.models.Issue;
-import org.gitlab4j.models.Constants.IssueState;
+import org.gitlab4j.api.models.Label;
 
 public class GitlabService implements Service {
 
@@ -35,6 +36,18 @@ public class GitlabService implements Service {
             ticket.dueDate = "";
         }
         return ticket;
+    }
+
+    static ArrayList<nl.lunarflow.models.Label> mapLabels(List<Label> labelList) {
+        ArrayList<nl.lunarflow.models.Label> res = new ArrayList<nl.lunarflow.models.Label>();
+        for (Label label : labelList) {
+            nl.lunarflow.models.Label lab = new nl.lunarflow.models.Label();
+            lab.id = label.getId();
+            lab.name = label.getName();
+            lab.color = label.getColor();
+            res.add(lab);
+        }
+        return res;
     }
 
     @Override
@@ -63,10 +76,34 @@ public class GitlabService implements Service {
     @Override
     public Ticket doneTicket(Config conf, Ticket ticket) throws Exception {
         GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
-        Issue issue = api.getIssuesApi().getIssue(conf.projectPath, ticket.id);
-        issue.setState(IssueState.CLOSED);
-
+        api.getIssuesApi().closeIssue(conf.projectPath, ticket.id);
         api.close();
         return ticket;
+    }
+
+    @Override
+    public nl.lunarflow.models.Label newLabel(Config conf, nl.lunarflow.models.Label label) throws Exception {
+        GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+        Label glLabel = api.getLabelsApi().createProjectLabel(conf.projectPath, new Label().withName(label.name));
+        label.id = glLabel.getId();
+        api.close();
+        return label;
+    }
+
+    @Override
+    public nl.lunarflow.models.Label delLabel(Config conf, nl.lunarflow.models.Label label) throws Exception {
+        GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+        api.getLabelsApi().deleteProjectLabel(conf.projectPath, label.id);
+        label.id = (long) -1;
+        api.close();
+        return label;
+    }
+
+    @Override
+    public ArrayList<nl.lunarflow.models.Label> listLabel(Config conf, nl.lunarflow.models.Label label) throws Exception {
+        GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+        var res = mapLabels(api.getLabelsApi().getProjectLabels(conf.projectPath));
+        api.close();
+        return res;
     }
 }

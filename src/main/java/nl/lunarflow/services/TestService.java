@@ -3,6 +3,7 @@ package nl.lunarflow.services;
 import java.util.ArrayList;
 
 import nl.lunarflow.models.Config;
+import nl.lunarflow.models.Label;
 import nl.lunarflow.models.Service;
 import nl.lunarflow.models.Ticket;
 
@@ -35,6 +36,24 @@ public class TestService implements Service {
     @Override
     public Ticket doneTicket(Config conf, Ticket ticket) {
         return ticket;
+    }
+
+    @Override
+    public Label newLabel(Config conf, Label label) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newLabel'");
+    }
+
+    @Override
+    public Label delLabel(Config conf, Label label) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delLabel'");
+    }
+
+    @Override
+    public ArrayList<Label> listLabel(Config conf, Label label) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listLabel'");
     }
     
 }
