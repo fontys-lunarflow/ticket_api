@@ -26,6 +26,11 @@ public class Handler {
         return handler.doneTicket(conf, ticket);
     }
 
+
+    public static Ticket setLabels(Config conf, Ticket ticket, Service handler) throws Exception {
+        return handler.setLabels(conf, ticket);
+    }
+
     public static List<Label> listLabel(Config conf, Service handler) throws Exception {
         return handler.listLabel(conf);
     }

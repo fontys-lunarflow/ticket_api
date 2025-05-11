@@ -107,4 +107,15 @@ public class GitlabService implements Service {
         api.close();
         return res;
     }
+
+    @Override
+    public Ticket setLabels(Config conf, Ticket ticket) throws Exception {
+        GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+        Issue issue = api.getIssuesApi().getIssue(conf.projectPath, ticket.id);
+        issue.setLabels(ticket.labels);
+        Ticket ret = mapTicket(issue);
+
+        api.close();
+        return ret;
+    }
 }

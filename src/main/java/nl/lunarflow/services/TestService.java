@@ -55,5 +55,11 @@ public class TestService implements Service {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listLabel'");
     }
+
+    @Override
+    public Ticket setLabels(Config conf, Ticket ticket) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setLabels'");
+    }
     
 }

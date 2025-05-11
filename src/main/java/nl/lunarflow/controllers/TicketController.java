@@ -41,4 +41,15 @@ public class TicketController {
         }
         return Response.ok(ticket).build();
     }
+
+    @Path("/api/ticket/setlabels")
+    @GET
+    public Response setLabels(Ticket ticket) {
+        try {
+            ticket = Handler.setLabels(new Config(), ticket, new GitlabService());
+        } catch (Exception err) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
+        }
+        return Response.ok(ticket).build();
+    }
 }
