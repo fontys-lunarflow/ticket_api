@@ -30,6 +30,7 @@ public class GitlabService implements Service {
         ticket.title = issue.getTitle();
         ticket.desc = issue.getDescription();
         ticket.url = issue.getWebUrl();
+        ticket.labels = issue.getLabels();
         if (issue.getDueDate() != null) {
             ticket.dueDate = issue.getDueDate().toString();
         } else {
@@ -100,7 +101,7 @@ public class GitlabService implements Service {
     }
 
     @Override
-    public ArrayList<nl.lunarflow.models.Label> listLabel(Config conf, nl.lunarflow.models.Label label) throws Exception {
+    public List<nl.lunarflow.models.Label> listLabel(Config conf) throws Exception {
         GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
         var res = mapLabels(api.getLabelsApi().getProjectLabels(conf.projectPath));
         api.close();

@@ -1,6 +1,6 @@
 package nl.lunarflow.models;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Service {
     public Ticket reqTicket(Config conf, Ticket ticket) throws Exception;
@@ -9,5 +9,5 @@ public interface Service {
     
     public Label newLabel(Config conf, Label label) throws Exception;
     public Label delLabel(Config conf, Label label) throws Exception;
-    public ArrayList<Label> listLabel(Config conf, Label label) throws Exception;
+    public List<Label> listLabel(Config conf) throws Exception;
 }

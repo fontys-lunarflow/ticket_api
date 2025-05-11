@@ -51,7 +51,7 @@ public class TestService implements Service {
     }
 
     @Override
-    public ArrayList<Label> listLabel(Config conf, Label label) throws Exception {
+    public ArrayList<Label> listLabel(Config conf) throws Exception {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listLabel'");
     }
