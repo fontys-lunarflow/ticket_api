@@ -1,7 +1,0 @@
-FROM sapmachine:21
-
-WORKDIR /work
-
-COPY . /work/
-
-CMD ./mvnw clean compile
