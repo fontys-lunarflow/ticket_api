@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ticket-api
+data:
+  GITLAB_PROJECT: org/team/project
+  GITLAB_SERVER: https://gitlab.com/
+  GITLAB_TOKEN: gl-0000
+  MQ_HOST: rabbitmq.lunarflow.svc.cluster.local
+  MQ_USER: myuser
+  MQ_PASS: mypass123
