@@ -2,13 +2,18 @@ package nl.lunarflow.models;
 
 import java.util.List;
 
+/*
+ * This service is just here to implement a contract
+ * And to get an impression for how to approach future work
+ */
+
 public interface Service {
-    public Ticket reqTicket(Config conf, Ticket ticket) throws Exception;
-    public Ticket newTicket(Config conf, Ticket ticket) throws Exception;
-    public Ticket doneTicket(Config conf, Ticket ticket) throws Exception;
+    public Ticket createIssue(Config conf, Ticket ticket) throws Exception;
+    public Ticket readIssue(Config conf, Ticket ticket) throws Exception;
+    public Ticket closeIssue(Config conf, Ticket ticket) throws Exception;
     public Ticket setLabels(Config conf, Ticket ticket) throws Exception;
-    
-    public Label newLabel(Config conf, Label label) throws Exception;
-    public Label delLabel(Config conf, Label label) throws Exception;
-    public List<Label> listLabel(Config conf) throws Exception;
+
+    public Taglabel createLabel(Config conf, Taglabel tlabel) throws Exception;
+    public Taglabel deleteLabel(Config conf, Taglabel tlabel) throws Exception;
+    public List<Taglabel> listLabels(Config conf) throws Exception;
 }
