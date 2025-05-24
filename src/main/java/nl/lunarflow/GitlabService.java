@@ -119,4 +119,20 @@ public class GitlabService implements Service {
         api.close();
         return res;
     }
+
+    @Override
+    public List<Taglabel> listFilteredLabels(Config conf, List<Taglabel> list) throws Exception {
+        // Allocate an intermidiate list
+        List<Label> ilist = new ArrayList<Label>();
+        GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+
+        for (Taglabel taglab : list) {
+            try {
+                ilist.add(api.getLabelsApi().getProjectLabel(conf.projectPath, taglab.id));
+            } finally {}
+        }
+        
+        api.close();
+        return mapLabels(ilist);
+    }
 }
