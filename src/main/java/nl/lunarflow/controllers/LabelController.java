@@ -2,6 +2,8 @@ package nl.lunarflow.controllers;
 
 import java.util.*;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -13,6 +15,7 @@ public class LabelController {
 
     @Path("/create")
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     public Response newLabel(Taglabel label) {
         try {
             label = new GitlabService().createLabel(new Config(), label);
@@ -24,6 +27,7 @@ public class LabelController {
 
     @Path("/delete")
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     public Response delLabel(Taglabel label) {
         try {
             label = new GitlabService().deleteLabel(new Config(), label);
@@ -35,6 +39,7 @@ public class LabelController {
 
     @Path("/list")
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response listLabel() {
         List<Taglabel> list = new ArrayList<Taglabel>();
         try {
@@ -47,6 +52,7 @@ public class LabelController {
 
     @Path("/listFiltered")
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     public Response listFilteredLabel(List<Taglabel> list) {
         try {
              list = new GitlabService().listFilteredLabels(new Config(), list);
