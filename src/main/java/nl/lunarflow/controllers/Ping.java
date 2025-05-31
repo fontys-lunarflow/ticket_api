@@ -11,6 +11,6 @@ public class Ping {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String ping() {
-        return "pong";
+        return "\"pong\"";
     }
 }

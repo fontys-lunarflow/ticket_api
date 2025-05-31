@@ -14,4 +14,10 @@ public class Form<T> {
     public Form() {
 
     }
+
+    public Form(boolean err, String msg, T obj) {
+        this.error = err;
+        this.mesg = msg;
+        this.data = obj;
+    }
 }

@@ -97,7 +97,7 @@ public class GitlabService implements Service {
     @Override
     public Taglabel createLabel(Config conf, Taglabel tlabel) throws Exception {
         GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
-        Label glLabel = api.getLabelsApi().createProjectLabel(conf.projectPath, new Label().withName(tlabel.name));
+        Label glLabel = api.getLabelsApi().createProjectLabel(conf.projectPath, new Label().withName(tlabel.name).withColor(tlabel.color));
         tlabel.id = glLabel.getId();
         api.close();
         return tlabel;
@@ -118,5 +118,21 @@ public class GitlabService implements Service {
         var res = mapLabels(api.getLabelsApi().getProjectLabels(conf.projectPath));
         api.close();
         return res;
+    }
+
+    @Override
+    public List<Taglabel> listFilteredLabels(Config conf, List<Taglabel> list) throws Exception {
+        // Allocate an intermidiate list
+        List<Label> ilist = new ArrayList<Label>();
+        GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+
+        for (Taglabel taglab : list) {
+            try {
+                ilist.add(api.getLabelsApi().getProjectLabel(conf.projectPath, taglab.id));
+            } finally {}
+        }
+        
+        api.close();
+        return mapLabels(ilist);
     }
 }

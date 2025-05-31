@@ -16,4 +16,5 @@ public interface Service {
     public Taglabel createLabel(Config conf, Taglabel tlabel) throws Exception;
     public Taglabel deleteLabel(Config conf, Taglabel tlabel) throws Exception;
     public List<Taglabel> listLabels(Config conf) throws Exception;
+    public List<Taglabel> listFilteredLabels(Config conf, List<Taglabel> list) throws Exception;
 }
