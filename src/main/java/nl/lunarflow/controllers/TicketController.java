@@ -6,6 +6,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.POST;
 import nl.lunarflow.models.Config;
+import nl.lunarflow.models.Form;
 import nl.lunarflow.models.Ticket;
 import nl.lunarflow.GitlabService;
 
@@ -19,9 +20,9 @@ public class TicketController {
         try {
             ticket = new GitlabService().createIssue(new Config(), ticket);
         } catch (Exception err) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
+            return Response.ok(new Form<Ticket>(true, err.getMessage(), null)).build();
         }
-        return Response.ok(ticket).build();
+        return Response.ok(new Form<Ticket>(false, null, ticket)).build();
     }
 
     @Path("/close")
@@ -31,9 +32,9 @@ public class TicketController {
         try {
             ticket = new GitlabService().closeIssue(new Config(), ticket);
         } catch (Exception err) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
+            return Response.ok(new Form<Ticket>(true, err.getMessage(), null)).build();
         }
-        return Response.ok(ticket).build();
+        return Response.ok(new Form<Ticket>(false, null, ticket)).build();
     }
 
     @Path("/read")
@@ -43,9 +44,9 @@ public class TicketController {
         try {
             ticket = new GitlabService().readIssue(new Config(), ticket);
         } catch (Exception err) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
+            return Response.ok(new Form<Ticket>(true, err.getMessage(), null)).build();
         }
-        return Response.ok(ticket).build();
+        return Response.ok(new Form<Ticket>(false, null, ticket)).build();
     }
 
     @Path("/setlabels")
@@ -55,8 +56,8 @@ public class TicketController {
         try {
             ticket = new GitlabService().setLabels(new Config(), ticket);
         } catch (Exception err) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.toString()).build();
+            return Response.ok(new Form<Ticket>(true, err.getMessage(), null)).build();
         }
-        return Response.ok(ticket).build();
+        return Response.ok(new Form<Ticket>(false, null, ticket)).build();
     }
 }
