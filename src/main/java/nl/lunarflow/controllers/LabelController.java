@@ -8,8 +8,10 @@ import jakarta.ws.rs.POST;
 import nl.lunarflow.models.*;
 import nl.lunarflow.GitlabService;
 
+@Path("/api/labels")
 public class LabelController {
-    @Path("/api/label/create")
+
+    @Path("/create")
     @POST
     public Response newLabel(Taglabel label) {
         try {
@@ -20,7 +22,7 @@ public class LabelController {
         return Response.ok(label).build();
     }
 
-    @Path("/api/label/delete")
+    @Path("/delete")
     @POST
     public Response delLabel(Taglabel label) {
         try {
@@ -31,7 +33,7 @@ public class LabelController {
         return Response.ok(label).build();
     }
 
-    @Path("/api/label/list")
+    @Path("/list")
     @GET
     public Response listLabel() {
         List<Taglabel> list = new ArrayList<Taglabel>();
@@ -43,7 +45,7 @@ public class LabelController {
         return Response.ok(list).build();
     }
 
-    @Path("/api/label/listFiltered")
+    @Path("/listFiltered")
     @POST
     public Response listFilteredLabel(List<Taglabel> list) {
         try {

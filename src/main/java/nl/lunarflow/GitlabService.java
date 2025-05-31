@@ -97,7 +97,7 @@ public class GitlabService implements Service {
     @Override
     public Taglabel createLabel(Config conf, Taglabel tlabel) throws Exception {
         GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
-        Label glLabel = api.getLabelsApi().createProjectLabel(conf.projectPath, new Label().withName(tlabel.name));
+        Label glLabel = api.getLabelsApi().createProjectLabel(conf.projectPath, new Label().withName(tlabel.name).withColor(tlabel.color));
         tlabel.id = glLabel.getId();
         api.close();
         return tlabel;
