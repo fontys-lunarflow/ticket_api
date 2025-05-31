@@ -2,14 +2,15 @@ package nl.lunarflow.controllers;
 
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import nl.lunarflow.models.Config;
 import nl.lunarflow.models.Ticket;
 import nl.lunarflow.GitlabService;
 
+@Path("/api/ticket")
 public class TicketController {
-    @Path("/api/issue/create")
+
+    @Path("/create")
     @POST
     public Response newTicket(Ticket ticket) {
         try {
@@ -20,7 +21,7 @@ public class TicketController {
         return Response.ok(ticket).build();
     }
 
-    @Path("/api/issue/close")
+    @Path("/close")
     @POST
     public Response doneTicket(Ticket ticket) {
         try {
@@ -31,8 +32,8 @@ public class TicketController {
         return Response.ok(ticket).build();
     }
 
-    @Path("/api/issue/read")
-    @GET
+    @Path("/read")
+    @POST
     public Response requestTicket(Ticket ticket) {
         try {
             ticket = new GitlabService().readIssue(new Config(), ticket);
@@ -42,8 +43,8 @@ public class TicketController {
         return Response.ok(ticket).build();
     }
 
-    @Path("/api/ticket/setlabels")
-    @GET
+    @Path("/setlabels")
+    @POST
     public Response setLabels(Ticket ticket) {
         try {
             ticket = new GitlabService().setLabels(new Config(), ticket);
