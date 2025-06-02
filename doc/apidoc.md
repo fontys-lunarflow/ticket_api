@@ -37,59 +37,110 @@ Generally only the `id` and `title` fields are required.
 ```
 Generally only the `id` and `name` fields are required.
 
-### GET: /ping
+### POST: /api/labels/create
 
 **Request body**
+```json
+{
+  "id": 0,
+  "name": "Mylabel",
+  "color": "#000000"
+}
+```
 
 **Response body**
 ```json
 {
-  "ping": "pong",
-  "config": {
-    "serverURL": "https://gitlab.com/",
-    "projectPath": "group/project",
-    "token": "gl-some-token"
+  "error": false,
+  "mesg": "",
+  "data": {
+    "id": 0,
+    "name": "Mylabel",
+    "color": "#000000"
   }
 }
 ```
 
-### POST: /api/new
+### POST: /api/labels/delete
 
 **Request body**
 ```json
 {
-  "title" : "Demo ticket",
-  "desc": "This is a demo ticket."
-}
-```
-**Response body**
-```json
-{
-  "id": 3,
-  "title": "Demo ticket",
-  "desc": "This is a demo ticket.",
-  "dueDate": "",
-  "url": "https://gitlab.com/group/project/-/issues/3",
-  "assignees": null
+  "id": 0,
+  "name": "Mylabel",
+  "color": "#000000"
 }
 ```
 
-### GET: /api/request
+**Response body**
+```json
+{
+  "error": false,
+  "mesg": "",
+  "data": {
+    "id": 0,
+    "name": "Mylabel",
+    "color": "#000000"
+  }
+}
+```
+
+### GET: /api/labels/list
+
+**Response body**
+```json
+{
+  "error": false,
+  "mesg": "",
+  "data": [
+    {
+      "id": 0,
+      "name": "Mylabel",
+      "color": "#000000"
+    },
+    {
+    "id": 1,
+    "name": "Otherlabel",
+    "color": "#000000"
+    }
+  ]
+}
+```
+
+### POST: /api/labels/list/filtered
 
 **Request body**
 ```json
-{
-  "id": 3
-}
+[
+  {
+    "id": 0,
+    "name": "Mylabel",
+    "color": "#000000"
+  },
+  {
+    "id": 1,
+    "name": "Otherlabel",
+    "color": "#000000"
+  },
+]
 ```
+
 **Response body**
 ```json
 {
-  "id": 3,
-  "title": "Demo ticket",
-  "desc": "This is a demo ticket.",
-  "dueDate": "",
-  "url": "https://gitlab.com/group/project/-/issues/3",
-  "assignees": null
+  "error": false,
+  "mesg": "",
+  "data": [
+    {
+      "id": 0,
+      "name": "Mylabel",
+      "color": "#000000"
+    },
+    {
+      "id": 1,
+      "name": "Otherlabel",
+      "color": "#000000"
+    },
+  ]
 }
 ```
