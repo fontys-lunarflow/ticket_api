@@ -1,4 +1,3 @@
-version: "3"
 services:
   test:
     container_name: quarkus-test-live
@@ -11,4 +10,8 @@ services:
     restart: always
     volumes:
       - ./:/work/
+    environment:
+      - GITLAB_SERVER=https://gitlab.com/
+      - GITLAB_PROJECT=org/project
+      - GITLAB_TOKEN=glpat-xxx
     command: ["./mvnw", "quarkus:dev"]
