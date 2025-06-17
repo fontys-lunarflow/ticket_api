@@ -15,6 +15,8 @@ import nl.lunarflow.models.Service;
 
 public class GitlabService implements Service {
 
+    private static Exception notitleException = new Exception("No name or title specified in object field");
+
     static List<Assignee> mapAssignees(List<String> mailList) {
         List<Assignee> assignList = new ArrayList<Assignee>();
         if (mailList != null) {
@@ -55,6 +57,11 @@ public class GitlabService implements Service {
     @Override
     public Ticket createIssue(Config conf, Ticket ticket) throws Exception {
         GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+        if (ticket.title == "" || ticket.title == null)
+        {
+            api.close();
+            throw notitleException;
+        }
         Issue issue = api.getIssuesApi().createIssue(conf.projectPath, ticket.title, ticket.desc);
         issue.setAssignees(mapAssignees(ticket.assignees));
 
@@ -97,6 +104,11 @@ public class GitlabService implements Service {
     @Override
     public Taglabel createLabel(Config conf, Taglabel tlabel) throws Exception {
         GitLabApi api = new GitLabApi(conf.serverURL, conf.token);
+        if (tlabel.name == "" || tlabel.name == null)
+        {
+            api.close();
+            throw notitleException;
+        }
         Label glLabel = api.getLabelsApi().createProjectLabel(conf.projectPath, new Label().withName(tlabel.name).withColor(tlabel.color));
         tlabel.id = glLabel.getId();
         api.close();

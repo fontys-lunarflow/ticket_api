@@ -34,3 +34,8 @@ static class TestConfig {
 - Configure the variables inside `SystemTest.TestConfig` to match your situation.
 - When you are ready change the `SystemTest.TestConfig.Active` to `true`.
 - Execute `$ ./mvwn test`, and wait.
+
+### Monitoring
+
+When the Ticket API is up and running, prometheus compatible metrics are exposed on `/metrics`.
+ 
