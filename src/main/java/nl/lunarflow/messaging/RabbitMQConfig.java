@@ -1,6 +1,7 @@
 package nl.lunarflow.messaging;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class RabbitMQConfig {
@@ -21,8 +22,10 @@ public class RabbitMQConfig {
     public String exchange = "ticket.exchange";
 
 //    @ConfigProperty(name = "rabbitmq.response-queue")
-    public String requestQueue = "ticketapi.response";
+    public String otherService = "content_api";
 
 //    @ConfigProperty(name = "rabbitmq.request-queue")
-    public String responseQueue = "ticketapi.request";
+    public String thisService = "ticket_api";
+
+    public String correlationId = "content_item";
 }

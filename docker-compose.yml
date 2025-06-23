@@ -3,22 +3,22 @@ networks:
         external: true
 
 services:
-    # java container
-    ticket_api:
-        container_name: ticket_api
-        networks:
-            - backend_network
-        build:
-            context: src/main/docker
-            dockerfile: Dockerfile.dev
-        environment:
-            - GITLAB_TOKEN=
-            - GITLAB_PROJECT=69679842
-            - GITLAB_SERVER=https://gitlab.com
-        ports:
-            - "5001:8080"
-            - "5006:5006" #debugging port
-        restart: always
-        volumes:
-            - ./:/work/
-        command: ["./mvnw", "quarkus:dev"]
+  ticket_api:
+    container_name: ticket_api
+    networks:
+      - backend_network
+    build:
+      context: src/main/docker
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+      - "5004:5005" #debugging port
+    restart: always
+    volumes:
+      - ./:/work/
+    environment:
+      - GITLAB_SERVER=https://gitlab.com/
+      - GITLAB_PROJECT=martijnkop1/martijnkop
+      - GITLAB_TOKEN=glpat-gTMiTzijjLTgzJahkR5G
+      - CLASSPATH=/code/postgresql-42.2.10.jar:${CLASSPATH}
+    command: ["./mvnw", "quarkus:dev"]
